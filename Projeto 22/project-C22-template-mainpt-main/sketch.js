@@ -1,0 +1,74 @@
+
+
+const Engine = Matter.Engine;
+const World = Matter.World;
+const Bodies = Matter.Bodies;
+const Constraint = Matter.Constraint;
+
+var engine, world;
+var canvas;
+var palyer, playerBase, playerArcher;
+var baseimage;
+
+function preload() {
+  backgroundImg = loadImage("./assets/background.png");
+  baseimage = loadImage("./assets/base.png");
+  playerimage = loadImage("./assets/player.png");
+}
+
+function setup() {
+  canvas = createCanvas(windowWidth, windowHeight);
+
+  engine = Engine.create();
+  world = engine.world;
+  angleMode(DEGREES);
+
+  //criar corpo da base do jogador
+
+  var player_options = {
+    isStatic : true 
+  }
+
+  var playerBase_options = {
+    isStatic : true 
+  }
+  
+  var playerArcher_options = {
+    isStatic : true 
+  }
+
+  //criar corpo do jogador
+
+  playerBase = Bodies.rectangle (200,350,20,20,playerBase_options)
+  World.add (world, playerBase)
+
+  player = Bodies.rectangle (250,playerBase.position.y - 160 ,50,180,player_options)
+  World.add (world, player)
+
+  playerArcher = Bodies.rectangle (200,300,20,20,playerArcher_options)
+  World.add (world, playerArcher)
+
+}
+
+function draw() {
+  background(backgroundImg);
+
+   //exibir a imagem da base do jogador usando a função image()
+
+  image (baseimage, playerBase.position.x, playerBase.position.y, 180 ,150)
+
+   //exibir a imagem da base do jogador usando a função image()
+
+  image (playerimage, player.position.x, player.position.y, 50,180)
+
+ 
+
+
+  Engine.update(engine);
+
+  // Title
+  fill("#FFFF");
+  textAlign("center");
+  textSize(40);
+  text("ARQUEIRO ÉPICO", width / 2, 100);
+}
